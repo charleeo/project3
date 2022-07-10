@@ -12,15 +12,15 @@ commands:
         type: string
       bucket_id:
         type: string
-      steps:
-        - run:
-            name: Destroy environment
-            when: on_fail
-            command: |
-              aws s3 rm "s3://udapeople-<< parameters.bucket_id >>" --recursive
-              aws cloudformation delete-stack --stack-name << parameters.backend >>
-              aws cloudformation delete-stack --stack-name << parameters.frontend >>
-            #  aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: Destroy environment
+          when: on_fail
+          command: |
+            aws s3 rm "s3://udapeople-<< parameters.bucket_id >>" --recursive
+            aws cloudformation delete-stack --stack-name << parameters.backend >>
+            aws cloudformation delete-stack --stack-name << parameters.frontend >>
+          #  aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
   
 jobs:
   build-frontend:

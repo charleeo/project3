@@ -71,7 +71,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: [frontend-build]
+          keys: [frontend-build]
       - run:
           name: frontend analyzer
           command: |
@@ -86,7 +86,7 @@ jobs:
       - checkout
       # Restore from cache
       - restore_cache:
-        keys: [backend-build]
+          keys: [backend-build]
       # Your job code here
       - run:
           name: backend analyzer

@@ -318,7 +318,7 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       - save_cache:
           paths: [backend/node_modules]
-          key: [backend-build]
+          keys: [backend-build]
       - destroy_environments:
           frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
           backend: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"

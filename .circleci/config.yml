@@ -298,8 +298,6 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            name: install dependencies
-          command: |
             apk add --update ansible
             apk add --update nodejs npm
             pip install awscli

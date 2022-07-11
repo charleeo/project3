@@ -204,16 +204,28 @@ jobs:
   # Run migration
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
+      - run: 
+          name: Install dependencies
+          command: |
+            pip install awscli
+            apk add --update nodejs npm
+            apk add --update curl
       - run:
           name: Run migrations
           command: |
             cd backend
             npm install
-            npm audit fix --audit-level=critical
+            echo "------installed------"
             npm run migrations > migrations_dump.txt
+            echo
+            echo
+            echo "------done echo------"
+            cat migrations_dump.txt
       - run:
           name: Send migration results to memstash
           command: |
@@ -231,6 +243,28 @@ jobs:
       - rollback_migration:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
+  # deploy frontend
+  # deploy-frontend:
+  #   docker:
+  #     - image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           cd frontend
+  #           npm install
+  #     - run:
+  #         name: Get backend url
+  #         command: |
+  #           # your code here
+  #           export API_URL="http://${BACKEND_IP}:3030"
+  #           echo "${API_URL}"
+  #     - run:
+  #         name: Deploy frontend objects
+  #         command: |
+  #           # your code here
+  #     # Here's where you will add some code to rollback on failure      
 workflows:
   my_workflow:
     jobs:

@@ -319,6 +319,10 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
+      - destroy_environments:
+          frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+          backend: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
+          bucket_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - rollback_migration:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 workflows:

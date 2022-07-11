@@ -21,7 +21,7 @@ commands:
             aws cloudformation delete-stack --stack-name << parameters.backend >>
             aws cloudformation delete-stack --stack-name << parameters.frontend >>
           #  aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-  rollback-migration:
+  rollback_migration:
     description: Rollback the last migration if successfully run in the current workflow.
     parameters:
       workflow_id:
@@ -223,11 +223,11 @@ jobs:
 
             fi
             
-      - destroy-environment:    
+      - destroy_environments:    
           frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"                      
           backend: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"                        
           bucket_id: "${CIRCLE_WORKFLOW_ID:0:7}"
-      - rollback-migration:
+      - rollback_migration:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
 workflows:

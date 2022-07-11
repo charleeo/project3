@@ -299,7 +299,7 @@ jobs:
           name: install dependencies
           command: |
             apk add --update ansible
-            apk add --update nodejs npm
+            apk add --update nodejs npm pm2
             pip install awscli
             apk add --update curl
       - run:

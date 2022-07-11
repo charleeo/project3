@@ -299,9 +299,10 @@ jobs:
           name: install dependencies
           command: |
             apk add --update ansible
-            apk add --update nodejs npm pm2
+            apk add --update nodejs npm
             pip install awscli
             apk add --update curl
+            npm install pm2
       - run:
           name: deploy backend
           command: |

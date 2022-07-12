@@ -257,7 +257,10 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl --insecure https://kvdb.io/NBgM9V5hrof4HPa6ZKVUSq/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl --insecure https://kvdb.io/Y6hY9aFhqsvewrHzGuPiS6/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              echo "migrated ----------"
+            else
+             return 1
             fi
       - destroy_environments:
           frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"

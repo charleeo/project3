@@ -202,37 +202,64 @@ jobs:
           bucket_id: "${CIRCLE_WORKFLOW_ID:0:7}"
 
   # Run migration
+  # run-migrations:
+  #   docker:
+  #     - image: python:3.7-alpine3.16
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys: [backend-build]
+  #     - run: 
+  #         name: Install dependencies
+  #         command: |
+  #           pip install awscli
+  #           apk add --update nodejs npm
+  #           apk add --update curl
+  #     - run:
+  #         name: Run migrations
+  #         command: |
+  #           cd backend
+  #           npm install
+            
+  #           npm run migrations > migrations_dump.txt
+  #           cat migrations_dump.txt
+  #     - run:
+  #         name: Send migration results to memstash
+  #         command: |
+  #           if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+  #           then
+  #           curl https://kvdb.io/5zdVt1bPJ7whGt32GaGJ7f/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+
+  #           fi
   run-migrations:
     docker:
-      - image: python:3.7-alpine3.16
+      - image: python:3.10-alpine3.16
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
-      - run: 
+      - attach_workspace:
+          at: ~/     
+      - run:
           name: Install dependencies
           command: |
-            pip install awscli
-            apk add --update nodejs npm
-            apk add --update curl
+            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+      - restore_cache:
+          keys: [backend-build]            
       - run:
           name: Run migrations
           command: |
             cd backend
             npm install
-            
-            npm run migrations > migrations_dump.txt
+            npm run build
+            npm run migrations >> migrations_dump.txt
             cat migrations_dump.txt
       - run:
-          name: Send migration results to memstash
+          name: Send migration results to kvdb
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-            curl https://kvdb.io/5zdVt1bPJ7whGt32GaGJ7f/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-
+              curl --insecure https://kvdb.io/NBgM9V5hrof4HPa6ZKVUSq/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
-            
-      - destroy_environments:    
+      - destroy_environments:
           frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
           backend: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
           bucket_id: "${CIRCLE_WORKFLOW_ID:0:7}"

@@ -394,6 +394,10 @@ jobs:
       - restore_cache:
           keys: [frontend-build,backend-build]
       - run:
+          name: instal tar gzip
+          command: |
+            yum -y install tar 
+      - run:
           name: Fetch the Old workflow ID
           command: |
             export OldWorkflowID=$(aws cloudformation \

@@ -394,7 +394,7 @@ jobs:
       # - restore_cache:
       #     keys: [frontend-build,backend-build]
       # - run:
-      #     name: instal tar gzip
+      #     name: instal tar 
       #     command: |
       #       yum -y install tar gzip
       - run:
@@ -438,7 +438,7 @@ workflows:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
-              only: [master]
+              only: [dev]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:

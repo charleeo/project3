@@ -31,7 +31,7 @@ commands:
           name: Rollback migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure  https://kvdb.io/5zdVt1bPJ7whGt32GaGJ7f/migration_<< parameters.workflow_id >>)
+            SUCCESS=$(curl --insecure  https://kvdb.io/Y6hY9aFhqsvewrHzGuPiS6/migration_<< parameters.workflow_id >>)
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -260,7 +260,7 @@ jobs:
               curl --insecure https://kvdb.io/Y6hY9aFhqsvewrHzGuPiS6/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
               echo "migrated ----------"
             else
-             return 1
+             echo "No migration happened"
             fi
       - destroy_environments:
           frontend: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"

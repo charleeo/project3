@@ -246,8 +246,8 @@ jobs:
             sudo ./aws/install
             echo aws --version
       - run:
+          name: Run migrations
           command: |
-            name: Run migrations
             cd backend
             npm install
             npm run migrations >> migrations_dump.txt

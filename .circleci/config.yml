@@ -389,14 +389,14 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ./
-      - restore_cache:
-          keys: [frontend-build,backend-build]
-      - run:
-          name: instal tar gzip
-          command: |
-            yum -y install tar 
+      # - attach_workspace:
+      #     at: ./
+      # - restore_cache:
+      #     keys: [frontend-build,backend-build]
+      # - run:
+      #     name: instal tar gzip
+      #     command: |
+      #       yum -y install tar gzip
       - run:
           name: Fetch the Old workflow ID
           command: |

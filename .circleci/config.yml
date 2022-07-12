@@ -245,8 +245,9 @@ jobs:
             unzip awscliv2.zip
             sudo ./aws/install
             echo aws --version
-          name: Run migrations
+      - run:
           command: |
+            name: Run migrations
             cd backend
             npm install
             npm run migrations >> migrations_dump.txt

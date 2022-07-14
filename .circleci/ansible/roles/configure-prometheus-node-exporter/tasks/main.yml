@@ -18,7 +18,7 @@
     src: node_exporter.service
     dest: /etc/systemd/system/
 
-- name: "enable node_exporter service"
+- name: "enable node_exporter service "
   become: true
   systemd:
     state: restarted

@@ -1,0 +1,4 @@
+URL01 : https://github.com/charleeo/project3.git
+URL02 : http://udapeople-596e36c.s3.amazonaws.com/index.html#/employees
+URL03 : http://duq8mimt0gduz.cloudfront.net/#/employees
+URL04 : http://54.89.52.219:3030/api/status

@@ -21,6 +21,6 @@ aws cloudformation deploy \
   ]
 }
 
-# List bucket name
+# List bucket name here
 aws s3api list-buckets --query "Buckets[].Name"
 

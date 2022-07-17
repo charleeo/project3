@@ -4,7 +4,8 @@ cd .circleci/files
 aws cloudformation deploy \
          --template-file cloudfront.yml \
          --stack-name InitialStack\
-         --parameter-overrides WorkflowID=udapeople-5e2ee4t
+         --parameter-overrides WorkflowID=udapeople-5e2ee4t\
+         --region us-east-1
 
 {
   "Version": "2012-10-17",

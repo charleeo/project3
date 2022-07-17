@@ -1,1 +1,25 @@
 ./prometheus --config.file  ./prometheus.yml
+
+cd .circleci/files
+aws cloudformation deploy \
+         --template-file cloudfront.yml \
+         --stack-name InitialStack\
+         --parameter-overrides WorkflowID=udapeople-5e2ee4t
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+    }
+  ]
+}
+
+# List bucket name
+aws s3api list-buckets --query "Buckets[].Name"
+
